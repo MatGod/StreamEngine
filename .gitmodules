@@ -1,3 +1,9 @@
 [submodule "glfw"]
 	path = glfw
 	url = https://github.com/glfw/glfw
+[submodule "libpng"]
+	path = libpng
+	url = https://github.com/glennrp/libpng
+[submodule "zlib"]
+	path = libpng/zlib
+	url = https://github.com/madler/zlib

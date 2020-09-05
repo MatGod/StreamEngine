@@ -6,9 +6,12 @@ set(CMAKE_CXX_STANDARD 14)
 find_package(OpenGL REQUIRED)
 
 add_subdirectory(glfw)
-
 include_directories(glfw/include)
 
-add_executable(StreamEngine main.cpp)
+set(ZLIB_LIBRARY "libpng/zlib")
+add_subdirectory(libpng)
+include_directories(libpng)
 
-target_link_libraries(StreamEngine glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES})
+add_executable(StreamEngine main.cpp GLWindow.cpp GLWindow.h Image.cpp Image.h)
+
+target_link_libraries(StreamEngine glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} ${PNG_LIBRARIES})

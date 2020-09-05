@@ -1,6 +1,8 @@
 #include <iostream>
+#include "GLWindow.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    GLWindow mainWindow;
+    mainWindow.execute();
     return 0;
 }
