@@ -1,8 +1,11 @@
 #include <iostream>
-#include "GLWindow.h"
+#include "LowLevel/Images/Image.h"
+#include "LowLevel/Render/Render.h"
 
 int main() {
-    GLWindow mainWindow;
-    mainWindow.execute();
+    Render render;
+    auto img = render.LoadImage("Images/testImg.png");
+    render.DrawImage(img, 0, 0, 400, 400);
+    render.render();
     return 0;
 }

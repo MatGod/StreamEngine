@@ -5,17 +5,16 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(OpenGL REQUIRED)
 
-add_subdirectory(glfw)
-include_directories(glfw/include)
+add_subdirectory(Libs/glfw)
+include_directories(Libs/glfw/include)
 
-set(PNG_LIBRARY "libpng")
-set(PNG_PNG_INCLUDE_DIR "libpng")
 find_package(PNG REQUIRED)
-include_directories (libpng)
-link_directories (${LIBPNG_LIBRARY_DIRS})
-link_libraries (${LIBPNG_LIBRARIES})
 
+set(png++_ROOT_DIR "Libs/pngpp")
+set(png++_INCLUDE_DIRS "Libs/pngpp")
 
-add_executable(StreamEngine main.cpp GLWindow.cpp GLWindow.h Image.cpp Image.h)
+include_directories(${png++_INCLUDE_DIRS})
 
-target_link_libraries(StreamEngine glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} ${PNG_LIBRARIES})
+add_executable(StreamEngine main.cpp LowLevel/Render/GLWindow.cpp LowLevel/Render/GLWindow.h LowLevel/Images/Image.cpp LowLevel/Images/Image.h LowLevel/Render/Render.cpp LowLevel/Render/Render.h)
+
+target_link_libraries(StreamEngine GL glfw GLEW EGL ${PNG_LIBRARY} ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} ${png++_LIBRARIES})
