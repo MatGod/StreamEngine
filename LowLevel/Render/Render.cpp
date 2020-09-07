@@ -6,8 +6,8 @@
 
 #include <memory>
 
-Render::Render() {
-    window = std::make_unique<GLWindow>();
+Render::Render(int width, int height) {
+    window = std::make_unique<GLWindow>(width, height);
     shaderProg = std::make_unique<Shader>("LowLevel/Render/Shaders/VertexShader.glsl",
                                           "LowLevel/Render/Shaders/FragmentShader.glsl");
 
@@ -17,19 +17,20 @@ Render::Render() {
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*) 0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3* sizeof(GLfloat)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*) (3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*) (6 * sizeof(GLfloat)));
     glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     shaderProg->Use();
+    glUniform2f(glGetUniformLocation(shaderProg->GetProgram(), "windowSize"), window->getWidth(), window->getHeight());
 }
 
 std::shared_ptr<Image> Render::LoadImage(const std::string &imgPath) {
@@ -77,10 +78,10 @@ void Render::drawAll() {
     for (auto img : imagesToDraw) {
         GLfloat coords[] = {
                 // Позиции                            // Цвета            // Текстурные координаты
-                img.second.x1, img.second.y1, 0.0f,   0.0f, 0.0f, 0.0f,   1.0f, 0.0f,   // Верхний правый
-                img.second.x1, img.second.y0, 0.0f,   0.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Нижний правый
-                img.second.x0, img.second.y0, 0.0f,   0.0f, 0.0f, 0.0f,   0.0f, 1.0f,   // Нижний левый
-                img.second.x0, img.second.y1, 0.0f,   0.0f, 0.0f, 0.0f,   0.0f, 0.0f    // Верхний левый
+                img.second.x1, img.second.y1, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,   // Верхний правый
+                img.second.x1, img.second.y0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Нижний правый
+                img.second.x0, img.second.y0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,   // Нижний левый
+                img.second.x0, img.second.y1, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f    // Верхний левый
         };
         glBindVertexArray(VAO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);

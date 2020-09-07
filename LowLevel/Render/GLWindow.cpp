@@ -12,6 +12,7 @@ GLWindow::GLWindow(int windowWidth, int windowHeight) : width(windowWidth), heig
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(width, height, "StreamEngine Test", nullptr, nullptr);
     if (window == nullptr) {
@@ -31,6 +32,7 @@ GLWindow::GLWindow(int windowWidth, int windowHeight) : width(windowWidth), heig
     glDepthFunc(GL_LESS);
 
     glViewport(0, 0, bufferWidth, bufferHeight);
+    glEnable(GL_MULTISAMPLE);
 
     glClearColor(1, 1, 1, 1);
 }
@@ -43,4 +45,12 @@ void GLWindow::execute(const std::function<void(void)>& drawFunc) {
 
     glfwSwapBuffers(window);
     glfwPollEvents();
+}
+
+int GLWindow::getWidth() const {
+    return bufferWidth;
+}
+
+int GLWindow::getHeight() const {
+    return bufferHeight;
 }

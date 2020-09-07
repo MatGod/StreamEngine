@@ -22,6 +22,8 @@ public:
     explicit GLWindow(int windowWidth = 1366, int windowHeight = 768);
     GLFWwindow* getGLFWWindow() {return window;}
     void execute(const std::function<void(void)>& drawFunc);
+    int getWidth() const;
+    int getHeight() const;
 
 };
 

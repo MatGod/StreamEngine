@@ -30,7 +30,7 @@ private:
     void drawAll();
 
 public:
-    Render();
+    Render(int width = 1366, int height = 768);
     std::shared_ptr<Image> LoadImage(const std::string& imgPath);
     void DrawImage(const std::shared_ptr<Image>& img, float x, float y, float width, float height);
     void StartRender();

@@ -8,12 +8,11 @@
 #include <vector>
 #include <string>
 #include "../../pngpp/png.hpp"
+#include "Drawable.h"
 
 using namespace png;
 
-typedef pixel_buffer<basic_rgba_pixel<unsigned char>> imageBuffer;
-
-class Image {
+class Image : public Drawable {
 private:
     std::string path;
     std::vector<uint8_t> data;
