@@ -16,7 +16,7 @@ typedef pixel_buffer<basic_rgba_pixel<unsigned char>> imageBuffer;
 class Image {
 private:
     std::string path;
-    imageBuffer data;
+    std::vector<uint8_t> data;
     int width = 0;
     int height = 0;
 
@@ -26,7 +26,7 @@ public:
     void update(const std::string& imagePath);
     void clear();
     std::string getPath();
-    imageBuffer getData() const;
+    uint8_t* getData();
     int getWidth() const;
     int getHeight() const;
     ~Image();

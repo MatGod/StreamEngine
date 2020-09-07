@@ -2,7 +2,7 @@
 // Created by MatGod on 05.09.2020.
 //
 
-#include <iostream>
+
 #include "GLWindow.h"
 
 GLWindow::GLWindow(int windowWidth, int windowHeight) : width(windowWidth), height(windowHeight) {
@@ -14,37 +14,33 @@ GLWindow::GLWindow(int windowWidth, int windowHeight) : width(windowWidth), heig
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     window = glfwCreateWindow(width, height, "StreamEngine Test", nullptr, nullptr);
-
     if (window == nullptr) {
         std::cout << "Failed to create GLWindow. Terminate";
         glfwTerminate();
+        exit(2);
     }
     glfwMakeContextCurrent(window);
+    if (glewInit() != GLEW_OK) {
+        std::cout << "Failed to init GLEW\n";
+        exit(2);
+    }
     glfwSwapInterval(1);
 
     glfwGetFramebufferSize(window, &bufferWidth, &bufferHeight);
 
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_DOUBLEBUFFER);
     glDepthFunc(GL_LESS);
 
     glViewport(0, 0, bufferWidth, bufferHeight);
 
-    glClearColor(0, 0, 0, 1);
-    glOrtho(0, 0, bufferWidth, bufferHeight, 1, 0);
-    glEnable(GL_BLEND);
-    glEnable(GL_ALPHA_TEST);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(1, 1, 1, 1);
 }
 
-void GLWindow::execute() {
-    while (!glfwWindowShouldClose(window)) {
-        glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+void GLWindow::execute(const std::function<void(void)>& drawFunc) {
+    glClear(GL_COLOR_BUFFER_BIT);
 
-        //Insert Rendering code;
+    //Insert Rendering code;
+    drawFunc();
 
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+    glfwSwapBuffers(window);
+    glfwPollEvents();
 }

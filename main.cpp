@@ -4,8 +4,10 @@
 
 int main() {
     Render render;
-    auto img = render.LoadImage("Images/testImg.png");
-    render.DrawImage(img, 0, 0, 400, 400);
-    render.render();
+    auto img = render.LoadImage("Resource/Images/TestImg.png");
+    while (1) {
+        render.DrawImage(img, 0, 0, 1, 1);
+        render.StartRender();
+    }
     return 0;
 }
