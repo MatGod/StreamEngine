@@ -49,3 +49,24 @@ float GameObject::GetSpeed() const {
 std::shared_ptr<Image> GameObject::GetImage() {
     return pic->getImage(clock() - bornTime);
 }
+
+void GameObject::Move(Direction dir) {
+    switch (dir) {
+        case UP: {
+            y += speed;
+            break;
+        }
+        case DOWN: {
+            y -= speed;
+            break;
+        }
+        case LEFT: {
+            x -= speed;
+            break;
+        }
+        case RIGHT: {
+            x += speed;
+            break;
+        }
+    }
+}

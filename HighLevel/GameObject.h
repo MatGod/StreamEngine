@@ -8,6 +8,9 @@
 
 #include <memory>
 #include "../LowLevel/Images/Drawable.h"
+enum Direction {
+    UP, DOWN, LEFT, RIGHT
+};
 
 class GameObject {
 private:
@@ -31,7 +34,7 @@ public:
     float GetWidth() const;
     float GetHeight() const;
     float GetSpeed() const;
-    void Move();
+    void Move(Direction dir);
 };
 
 
