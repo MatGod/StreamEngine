@@ -10,30 +10,26 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../Images/Image.h"
-#include "GLWindow.h"
-#include "Shader.h"
-
-struct DrawCoords {
-    float x0, y0, x1, y1;
-};
+#include "Window/GLWindow.h"
+#include "Shaders/Shader.h"
 
 class Render {
 private:
     std::map<std::string, std::pair<std::shared_ptr<Image>, GLuint>> texIDs;
-    std::unique_ptr<GLWindow> window;
+    GLWindow* window;
     std::unique_ptr<Shader> shaderProg;
-    std::vector<std::pair<GLuint, DrawCoords>> imagesToDraw;
 
     GLuint VBO = 0;
     GLuint VAO = 0;
 
-    void drawAll();
-
 public:
-    Render(int width = 1366, int height = 768);
-    std::shared_ptr<Image> LoadImage(const std::string& imgPath);
-    void DrawImage(const std::shared_ptr<Image>& img, float x, float y, float width, float height);
-    void StartRender();
+    explicit Render(int width = 1366, int height = 768);
+    std::shared_ptr<Image> loadImage(const std::string& imgPath);
+    void drawImage(const std::shared_ptr<Image>& img, float x, float y, float width, float height);
+    void clearFrame();
+    void updateFrame();
+    void close();
+    void addKeyAction(Key, Action);
 };
 
 

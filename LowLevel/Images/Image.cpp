@@ -12,6 +12,10 @@ Image::Image(const std::string &imagePath) {
     load(imagePath);
 }
 
+std::shared_ptr<Image> Image::getImage(clock_t) {
+    return shared_from_this();
+}
+
 void Image::load(const std::string& imagePath) {
     path = imagePath;
     struct stat buffer{};

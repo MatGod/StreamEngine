@@ -6,9 +6,13 @@
 #define STREAMENGINE_DRAWABLE_H
 
 
-#include "Image.h"
+#include <memory>
+
+class Image;
 
 class Drawable {
+public:
+    virtual std::shared_ptr<Image> getImage(clock_t) = 0;
 };
 
 

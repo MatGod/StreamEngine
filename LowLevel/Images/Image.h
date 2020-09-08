@@ -12,7 +12,7 @@
 
 using namespace png;
 
-class Image : public Drawable {
+class Image : public Drawable, public std::enable_shared_from_this<Image> {
 private:
     std::string path;
     std::vector<uint8_t> data;
@@ -21,6 +21,7 @@ private:
 
 public:
     explicit Image(const std::string& imagePath);
+    std::shared_ptr<Image> getImage(clock_t) override;
     void load(const std::string& imagePath);
     void update(const std::string& imagePath);
     void clear();

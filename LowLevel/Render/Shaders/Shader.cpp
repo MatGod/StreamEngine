@@ -68,10 +68,10 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     glDeleteShader(fragment);
 }
 
-void Shader::Use() const {
+void Shader::use() const {
     glUseProgram(program);
 }
 
-GLuint Shader::GetProgram() const {
+GLuint Shader::getProgram() const {
     return program;
 }

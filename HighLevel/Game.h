@@ -14,9 +14,15 @@ private:
     std::shared_ptr<Render> render;
     std::unique_ptr<Scene> scene;
 
-    bool running = false;
+    bool running = true;
 public:
     explicit Game(int width = 1366, int height = 768);
+    void Draw();
+    int AddObject(std::shared_ptr<GameObject> obj);
+    std::shared_ptr<Image> LoadImage(const std::string& imgPath);
+    void addKeyAction(Key, Action);
+    void StopPlay();
+    bool IsRunning() const;
 };
 
 

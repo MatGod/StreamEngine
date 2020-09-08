@@ -5,9 +5,10 @@
 #include "Render.h"
 
 #include <memory>
+#include <utility>
 
 Render::Render(int width, int height) {
-    window = std::make_unique<GLWindow>(width, height);
+    window = GLWindow::getWindow();
     shaderProg = std::make_unique<Shader>("LowLevel/Render/Shaders/VertexShader.glsl",
                                           "LowLevel/Render/Shaders/FragmentShader.glsl");
 
@@ -29,11 +30,11 @@ Render::Render(int width, int height) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    shaderProg->Use();
-    glUniform2f(glGetUniformLocation(shaderProg->GetProgram(), "windowSize"), window->getWidth(), window->getHeight());
+    shaderProg->use();
+    glUniform2f(glGetUniformLocation(shaderProg->getProgram(), "windowSize"), window->getWidth(), window->getHeight());
 }
 
-std::shared_ptr<Image> Render::LoadImage(const std::string &imgPath) {
+std::shared_ptr<Image> Render::loadImage(const std::string &imgPath) {
     if (texIDs.find(imgPath) != texIDs.end()) {
         return texIDs[imgPath].first;
     }
@@ -63,34 +64,36 @@ std::shared_ptr<Image> Render::LoadImage(const std::string &imgPath) {
     return img;
 }
 
-void Render::DrawImage(const std::shared_ptr<Image> &img, float x, float y, float width, float height) {
-    DrawCoords coords = {x, y, x + width, y + height};
-    imagesToDraw.emplace_back(texIDs[img->getPath()].second, coords);
+void Render::drawImage(const std::shared_ptr<Image> &img, float x, float y, float width, float height) {
+    GLfloat coords[] = {
+            // Позиции             // Цвета          // Текстурные координаты
+            x + width, y + height, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,   // Верхний правый
+            x + width, y,          0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Нижний правый
+            x,         y,          0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,   // Нижний левый
+            x,         y + height, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f    // Верхний левый
+    };
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(coords), coords, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glBindTexture(GL_TEXTURE_2D, texIDs[img->getPath()].second);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    glBindVertexArray(0);
 }
 
-void Render::StartRender() {
-    window->execute([this]() {
-        this->drawAll();
-    });
+void Render::clearFrame() {
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Render::drawAll() {
-    for (auto img : imagesToDraw) {
-        GLfloat coords[] = {
-                // Позиции                            // Цвета            // Текстурные координаты
-                img.second.x1, img.second.y1, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,   // Верхний правый
-                img.second.x1, img.second.y0, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Нижний правый
-                img.second.x0, img.second.y0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,   // Нижний левый
-                img.second.x0, img.second.y1, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f    // Верхний левый
-        };
-        glBindVertexArray(VAO);
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(coords), coords, GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+void Render::updateFrame() {
+    window->update();
+}
 
-        glBindTexture(GL_TEXTURE_2D, img.first);
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-        glBindVertexArray(0);
-    }
-    imagesToDraw.clear();
+void Render::addKeyAction(Key key, Action action) {
+    window->addKeyAction(key, std::move(action));
+}
+
+void Render::close() {
+    window->close();
 }

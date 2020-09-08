@@ -17,20 +17,21 @@ private:
     float width = 0;
     float height = 0;
     float speed = 0;
-    float bornTime = 0;
-    float lifeTime = 0;
+    clock_t bornTime = 0;
+    clock_t lifeTime = 0;
 
 public:
     explicit GameObject(std::shared_ptr<Drawable> drawable);
-    std::shared_ptr<Image> getImage();
-    void setPosition(float x, float y);
-    void setSize(float width, float height);
-    void setSpeed(float speed);
-    float getXPos() const;
-    float getYPos() const;
-    float getWidth() const;
-    float getHeight() const;
-    float getSpeed() const;
+    std::shared_ptr<Image> GetImage();
+    void SetPosition(float x, float y);
+    void SetSize(float w, float h);
+    void SetSpeed(float s);
+    float GetXPos() const;
+    float GetYPos() const;
+    float GetWidth() const;
+    float GetHeight() const;
+    float GetSpeed() const;
+    void Move();
 };
 
 

@@ -10,6 +10,6 @@ Animation::Animation(std::vector<std::shared_ptr<Image>> images) {
     animList = std::move(images);
 }
 
-std::shared_ptr<Image> Animation::getFrame(float time) {
-    return animList[static_cast<int>(time / playTime * animList.size()) % static_cast<int>(animList.size())];
+std::shared_ptr<Image> Animation::getImage(clock_t time) {
+    return animList[static_cast<int>(time / (playTime * CLOCKS_PER_SEC * animList.size())) % static_cast<int>(animList.size())];
 }

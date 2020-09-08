@@ -9,48 +9,43 @@
 
 GameObject::GameObject(std::shared_ptr<Drawable> drawable) {
     pic = std::move(drawable);
+    bornTime = clock();
 }
 
-void GameObject::setPosition(float x, float y) {
+void GameObject::SetPosition(float x, float y) {
     this->x = x;
     this->y = y;
 }
 
-void GameObject::setSize(float width, float height) {
-    this->width = width;
-    this->height = height;
+void GameObject::SetSize(float w, float h) {
+    width = w;
+    height = h;
 }
 
-void GameObject::setSpeed(float speed) {
-    this->speed = speed;
+void GameObject::SetSpeed(float s) {
+    speed = s;
 }
 
-float GameObject::getXPos() const {
+float GameObject::GetXPos() const {
     return x;
 }
 
-float GameObject::getYPos() const {
+float GameObject::GetYPos() const {
     return y;
 }
 
-float GameObject::getWidth() const {
+float GameObject::GetWidth() const {
     return width;
 }
 
-float GameObject::getHeight() const {
+float GameObject::GetHeight() const {
     return height;
 }
 
-float GameObject::getSpeed() const {
+float GameObject::GetSpeed() const {
     return speed;
 }
 
-std::shared_ptr<Image> GameObject::getImage() {
-    if (std::is_same<decltype(pic), class Image>::value) {
-        Image* img = static_cast<Image*>(pic.get());
-        return std::shared_ptr<Image>();
-    } else {
-        auto* anim = static_cast<Animation*>(pic.get());
-        return static_cast<Animation*>(pic.get())->getFrame(lifeTime);
-    }
+std::shared_ptr<Image> GameObject::GetImage() {
+    return pic->getImage(clock() - bornTime);
 }

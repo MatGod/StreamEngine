@@ -17,8 +17,8 @@ private:
     GLuint program;
 public:
     Shader(const char*, const char*);
-    void Use() const;
-    GLuint GetProgram() const;
+    void use() const;
+    GLuint getProgram() const;
 };
 
 

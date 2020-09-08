@@ -1,13 +1,17 @@
-#include <iostream>
-#include "LowLevel/Images/Image.h"
-#include "LowLevel/Render/Render.h"
+#include "HighLevel/Game.h"
 
 int main() {
-    Render render;
-    auto img = render.LoadImage("Resource/Images/TestImg.png");
-    while (1) {
-        render.DrawImage(img, 0, 0, 200, 200);
-        render.StartRender();
+    Game MainGame(1366, 768);
+    auto img = MainGame.LoadImage("Resource/Images/TestImg.png");
+    auto alpha = std::make_shared<GameObject>(img);
+    alpha->SetPosition(-100, -100);
+    alpha->SetSize(100, 100);
+    MainGame.AddObject(alpha);
+    MainGame.addKeyAction(ESC, [&MainGame]() {
+        MainGame.StopPlay();
+    });
+    while (MainGame.IsRunning()) {
+        MainGame.Draw();
     }
     return 0;
 }

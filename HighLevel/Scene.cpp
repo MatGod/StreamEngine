@@ -11,11 +11,17 @@ Scene::Scene(std::shared_ptr<Render> r) {
 }
 
 void Scene::Draw() {
+    render->clearFrame();
     for (const auto &obj : objects) {
         auto gameObject = obj.second;
-        render->DrawImage(gameObject.getImage(),
-                          gameObject.getXPos(), gameObject.getYPos(),
-                          gameObject.getWidth(),gameObject.getHeight());
+        render->drawImage(gameObject->GetImage(),
+                          gameObject->GetXPos(), gameObject->GetYPos(),
+                          gameObject->GetWidth(), gameObject->GetHeight());
     }
+    render->updateFrame();
+}
 
+int Scene::AddObject(std::shared_ptr<GameObject> object) {
+    objects[nextID] = std::move(object);
+    return nextID++;
 }
