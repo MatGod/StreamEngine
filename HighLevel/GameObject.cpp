@@ -12,6 +12,10 @@ GameObject::GameObject(std::shared_ptr<Drawable> drawable) {
     bornTime = clock();
 }
 
+GameObject::GameObject(const std::vector<std::shared_ptr<Image>>& animImages) {
+    pic = std::make_shared<Animation>(animImages);
+}
+
 void GameObject::SetPosition(float x, float y) {
     this->x = x;
     this->y = y;

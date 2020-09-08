@@ -27,7 +27,11 @@ int Game::AddObject(std::shared_ptr<GameObject> obj) {
     return scene->AddObject(std::move(obj));
 }
 
-void Game::addKeyAction(Key key, Action action) {
+void Game::DeleteObject(int id) {
+    scene->DeleteObject(id);
+}
+
+void Game::AddKeyAction(Key key, Action action) {
     render->addKeyAction(key, std::move(action));
 }
 

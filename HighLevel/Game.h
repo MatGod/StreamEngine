@@ -19,8 +19,9 @@ public:
     explicit Game(int width = 1366, int height = 768);
     void Draw();
     int AddObject(std::shared_ptr<GameObject> obj);
+    void DeleteObject(int id);
     std::shared_ptr<Image> LoadImage(const std::string& imgPath);
-    void addKeyAction(Key, Action);
+    void AddKeyAction(Key, Action);
     void StopPlay();
     bool IsRunning() const;
 };

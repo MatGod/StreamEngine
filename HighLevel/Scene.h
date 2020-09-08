@@ -19,6 +19,7 @@ private:
 public:
     explicit Scene(std::shared_ptr<Render>);
     int AddObject(std::shared_ptr<GameObject> object);
+    void DeleteObject(int id);
     void Draw();
 };
 

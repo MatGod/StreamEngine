@@ -25,3 +25,7 @@ int Scene::AddObject(std::shared_ptr<GameObject> object) {
     objects[nextID] = std::move(object);
     return nextID++;
 }
+
+void Scene::DeleteObject(int id) {
+    objects.erase(id);
+}

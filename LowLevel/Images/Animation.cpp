@@ -11,5 +11,5 @@ Animation::Animation(std::vector<std::shared_ptr<Image>> images) {
 }
 
 std::shared_ptr<Image> Animation::getImage(clock_t time) {
-    return animList[static_cast<int>(time / (playTime * CLOCKS_PER_SEC * animList.size())) % static_cast<int>(animList.size())];
+    return animList[static_cast<int>(time / (playTime * 100 * animList.size())) % static_cast<int>(animList.size())];
 }

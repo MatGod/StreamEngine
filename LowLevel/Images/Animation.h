@@ -14,7 +14,7 @@
 class Animation : public Drawable {
 private:
     std::vector<std::shared_ptr<Image>> animList;
-    float playTime = 0;
+    float playTime = 5;
 
 public:
     explicit Animation(std::vector<std::shared_ptr<Image>>);

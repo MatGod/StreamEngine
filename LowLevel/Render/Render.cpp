@@ -11,6 +11,10 @@ Render::Render(int width, int height) {
     window = GLWindow::getWindow();
     shaderProg = std::make_unique<Shader>("LowLevel/Render/Shaders/VertexShader.glsl",
                                           "LowLevel/Render/Shaders/FragmentShader.glsl");
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glClearColor(1, 0, 0, 1);
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -47,7 +51,7 @@ std::shared_ptr<Image> Render::loadImage(const std::string &imgPath) {
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glTexImage2D(GL_TEXTURE_2D,
                  0,
-                 GL_RGB,
+                 GL_RGBA,
                  img->getWidth(),
                  img->getHeight(),
                  0,

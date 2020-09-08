@@ -46,8 +46,8 @@ GLWindow::GLWindow(int& width, int& height) : width(width), height(height) {
 
     glfwWindowHint(GLFW_SAMPLES, 4);
 
-    window = glfwCreateWindow(width, height, "tests", NULL, NULL);
-    if (window == NULL) {
+    window = glfwCreateWindow(width, height, "tests", nullptr, nullptr);
+    if (window == nullptr) {
         std::cout << "Failed to create GLFW window\n";
         glfwTerminate();
         exit(1);
@@ -61,12 +61,8 @@ GLWindow::GLWindow(int& width, int& height) : width(width), height(height) {
     }
 
     glfwGetFramebufferSize(window, &bufferWidth, &bufferHeight);
-    glViewport(0, 0, bufferWidth, bufferHeight);
-    glEnable(GL_MULTISAMPLE);
 
     glfwSetKeyCallback(window, keyCallback);
-
-    glClearColor(1, 1, 1, 1);
 }
 
 int GLWindow::getWidth() const {
