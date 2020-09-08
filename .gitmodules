@@ -4,3 +4,6 @@
 [submodule "Libs/pngpp"]
 	path = Libs/pngpp
 	url = https://github.com/sampotter/pngpp
+[submodule "Libs/pugixml"]
+	path = Libs/pugixml
+	url = https://github.com/zeux/pugixml
