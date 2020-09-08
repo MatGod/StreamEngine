@@ -1,6 +1,6 @@
-[submodule "glfw"]
+[submodule "Libs/glfw"]
 	path = Libs/glfw
 	url = https://github.com/glfw/glfw
-[submodule "pngpp"]
+[submodule "Libs/pngpp"]
 	path = Libs/pngpp
 	url = https://github.com/sampotter/pngpp
