@@ -8,7 +8,7 @@ int main() {
     for (int i = 1; i != 9; ++i) {
         animImages.push_back(MainGame.LoadImage(imagesPath + "Anim1/" + std::to_string(i) + ".png"));
     }
-    auto Alpha = std::make_shared<GameObject>(animImages);
+    auto Alpha = std::make_shared<GameObject>(animImages, 2);
     Alpha->SetPosition(-200, -200);
     Alpha->SetSize(115, 130);
     Alpha->SetSpeed(5);

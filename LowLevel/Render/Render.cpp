@@ -9,8 +9,8 @@
 
 Render::Render(int width, int height) {
     window = GLWindow::getWindow();
-    shaderProg = std::make_unique<Shader>("LowLevel/Render/Shaders/VertexShader.glsl",
-                                          "LowLevel/Render/Shaders/FragmentShader.glsl");
+    shaderProg = std::make_unique<Shader>("Resource/Shaders/VertexShader.glsl",
+                                          "Resource/Shaders/FragmentShader.glsl");
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

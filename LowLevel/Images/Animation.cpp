@@ -6,7 +6,8 @@
 
 #include <utility>
 
-Animation::Animation(std::vector<std::shared_ptr<Image>> images) {
+Animation::Animation(std::vector<std::shared_ptr<Image>> images, float playTime) {
+    this->playTime = playTime;
     animList = std::move(images);
 }
 

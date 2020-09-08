@@ -27,7 +27,7 @@ private:
 
 public:
     explicit GameObject(std::shared_ptr<Drawable> drawable);
-    explicit GameObject(const std::vector<std::shared_ptr<Image>>& animImages);
+    explicit GameObject(const std::vector<std::shared_ptr<Image>>& animImages, float = 5);
     std::shared_ptr<Image> GetImage();
     void SetPosition(float x, float y);
     void SetSize(float w, float h);

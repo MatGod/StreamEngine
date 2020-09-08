@@ -17,7 +17,7 @@ private:
     float playTime = 5;
 
 public:
-    explicit Animation(std::vector<std::shared_ptr<Image>>);
+    explicit Animation(std::vector<std::shared_ptr<Image>>, float);
     std::shared_ptr<Image> getImage(clock_t time) override;
 };
 
