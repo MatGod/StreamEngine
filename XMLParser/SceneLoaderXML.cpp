@@ -31,7 +31,7 @@ std::unique_ptr<Scene> SceneLoaderXML::LoadScene(const std::string &sceneXMLPath
                                                            lib->GetDrawable(node.child("toDraw").text().as_string()));
             gameObject->SetPosition(node.child("position").child("x").text().as_float(),
                                     node.child("position").child("y").text().as_float());
-            gameObject->SetPosition(node.child("size").child("width").text().as_float(),
+            gameObject->SetSize(node.child("size").child("width").text().as_float(),
                                     node.child("size").child("height").text().as_float());
             gameObject->SetSpeed(node.child("speed").text().as_float());
             retScene->AddObject(gameObject);
