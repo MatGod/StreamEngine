@@ -7,13 +7,19 @@
 
 #include <utility>
 
-GameObject::GameObject(std::shared_ptr<Drawable> drawable) {
+GameObject::GameObject(const std::string &name, std::shared_ptr<Drawable> drawable) {
+    this->name = name;
     pic = std::move(drawable);
     bornTime = clock();
 }
 
-GameObject::GameObject(const std::vector<std::shared_ptr<Image>>& animImages, float playTime) {
+GameObject::GameObject(const std::string &name, const std::vector<std::shared_ptr<Image>>& animImages, float playTime) {
+    this->name = name;
     pic = std::make_shared<Animation>(animImages, playTime);
+}
+
+std::string GameObject::GetName() {
+    return name;
 }
 
 void GameObject::SetPosition(float x, float y) {

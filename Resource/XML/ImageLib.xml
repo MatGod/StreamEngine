@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<lib>
+    <imagesPath>Resource/Images/</imagesPath>
+    <animationsPath>Resource/XML/Animations/</animationsPath>
+    <image>
+        <name>TestImage</name>
+        <path>TestImg.png</path>
+    </image>
+    <animation>
+        <name>TestAnimation</name>
+        <path>Anim1.xml</path>
+    </animation>
+</lib>

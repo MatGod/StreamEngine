@@ -9,6 +9,8 @@
 Game::Game(int width, int height) {
     render = std::make_shared<Render>(width, height);
     scene = std::make_unique<Scene>(render);
+    lib = std::make_unique<LibraryXML>(render);
+    sceneLoader = std::make_shared<SceneLoaderXML>(lib, render);
 }
 
 bool Game::IsRunning() const {
@@ -23,12 +25,16 @@ std::shared_ptr<Image> Game::LoadImage(const std::string& imgPath) {
     return render->loadImage(imgPath);
 }
 
-int Game::AddObject(std::shared_ptr<GameObject> obj) {
-    return scene->AddObject(std::move(obj));
+void Game::AddObject(std::shared_ptr<GameObject> obj) {
+    scene->AddObject(std::move(obj));
 }
 
-void Game::DeleteObject(int id) {
-    scene->DeleteObject(id);
+std::shared_ptr<GameObject> Game::GetObject(const std::string &name) {
+    return scene->GetObject(name);
+}
+
+void Game::DeleteObject(const std::string &name) {
+    scene->DeleteObject(name);
 }
 
 void Game::AddKeyAction(Key key, Action action) {
@@ -38,4 +44,16 @@ void Game::AddKeyAction(Key key, Action action) {
 void Game::StopPlay() {
     running = false;
     render->close();
+}
+
+void Game::LoadLib(const std::string& libPathXML) {
+    lib->LoadLibrary(libPathXML);
+}
+
+std::shared_ptr<Drawable> Game::GetDrawable(const std::string& key) {
+    return lib->GetDrawable(key);
+}
+
+void Game::LoadScene(const std::string &scenePathXML) {
+    scene = sceneLoader->LoadScene(scenePathXML);
 }

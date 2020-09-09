@@ -39,7 +39,7 @@ Render::Render(int width, int height) {
 }
 
 std::shared_ptr<Image> Render::loadImage(const std::string &imgPath) {
-    if (texIDs.find(imgPath) != texIDs.end()) {
+    if (texIDs.find(imgPath) != texIDs.end() && !texIDs.empty()) {
         return texIDs[imgPath].first;
     }
     auto img = std::make_shared<Image>(imgPath);

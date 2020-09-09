@@ -10,6 +10,18 @@ Scene::Scene(std::shared_ptr<Render> r) {
     render = std::move(r);
 }
 
+void Scene::AddObject(std::shared_ptr<GameObject> object) {
+    objects[object->GetName()] = std::move(object);
+}
+
+void Scene::DeleteObject(const std::string &name) {
+    objects.erase(name);
+}
+
+std::shared_ptr<GameObject> Scene::GetObject(const std::string &name) {
+    return objects[name];
+}
+
 void Scene::Draw() {
     render->clearFrame();
     for (const auto &obj : objects) {
@@ -19,13 +31,4 @@ void Scene::Draw() {
                           gameObject->GetWidth(), gameObject->GetHeight());
     }
     render->updateFrame();
-}
-
-int Scene::AddObject(std::shared_ptr<GameObject> object) {
-    objects[nextID] = std::move(object);
-    return nextID++;
-}
-
-void Scene::DeleteObject(int id) {
-    objects.erase(id);
 }

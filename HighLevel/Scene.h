@@ -13,13 +13,14 @@
 class Scene {
 private:
     std::shared_ptr<Render> render;
-    std::map<int, std::shared_ptr<GameObject>> objects;
+    std::map<std::string, std::shared_ptr<GameObject>> objects;
     int nextID = 0;
 
 public:
     explicit Scene(std::shared_ptr<Render>);
-    int AddObject(std::shared_ptr<GameObject> object);
-    void DeleteObject(int id);
+    void AddObject(std::shared_ptr<GameObject> object);
+    void DeleteObject(const std::string &name);
+    std::shared_ptr<GameObject> GetObject(const std::string &name);
     void Draw();
 };
 
